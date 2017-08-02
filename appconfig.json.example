@@ -1,0 +1,7 @@
+{
+  "path": {
+    "api": "API-PATH",
+    "client": "CLIENT-PATH"
+  },
+  "url": "APP-URL"
+}

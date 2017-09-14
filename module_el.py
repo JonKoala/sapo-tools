@@ -35,6 +35,7 @@ class ModuleEl:
         status = response.status_code
 
         result = dict(url=url, status=status)
-        result['data'] = self.extract_response_data(response) if status == 200 else None
+        #result['data'] = self.extract_response_data(response) if status == 200 else None
+        result['registers'] = len(self.extract_response_data(response)) if status == 200 else None
 
-        return result, status, url
+        return result

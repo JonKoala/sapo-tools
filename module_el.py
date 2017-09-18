@@ -31,7 +31,7 @@ class ModuleEl:
 
     def request(self, url, ano, mes):
         url = self.build_url(url, ano, mes)
-        response = requests.get(url)
+        response = requests.get(url, verify=False)
         status = response.status_code
 
         result = dict(url=url, status=status)

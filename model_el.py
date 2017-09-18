@@ -12,7 +12,7 @@ class ModelEl:
         self.root = self.__format_root(root)
 
     def __format_root(self, root):
-        prefix = '' if root[:7] == 'http://' else 'http://'
+        prefix = '' if root[:4] == 'http' else 'http://'
         suffix = '' if root[-1:] == '/' else '/'
         return prefix + root + suffix
 

@@ -39,3 +39,5 @@ class ModuleEl:
         result['registers'] = len(self.extract_response_data(response)) if status == 200 else None
 
         return result
+
+requests.packages.urllib3.disable_warnings() 

@@ -18,20 +18,11 @@ class TestCaseEl:
         inacessible, lack_of_data, fake_data = self.execute_test_battery(request_results)
 
         return {
-            'dados extraidos' : request_results,
-            'resultados dos testes' : {
-                'indisponiveis' : {
-                    'casos' : inacessible,
-                    'total' : len(inacessible)
-                },
-                'sem dados' : {
-                    'casos' : lack_of_data,
-                    'total' : len(lack_of_data)
-                },
-                'dados falsos' : {
-                    'casos' : fake_data,
-                    'total' : len(fake_data)
-                }
+            'test_cases' : request_results,
+            'test_results' : {
+                'inacessible' : inacessible,
+                'lack_of_data' : lack_of_data,
+                'fake_data' : fake_data
             }
         }
 

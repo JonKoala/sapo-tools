@@ -5,21 +5,29 @@ import logging
 from inspect import getframeinfo, stack
 from test_case_el import TestCaseEl
 
+
+##
+#constants
+
 TEST_MONTH_RADIUS = 6
-TEST_PN_CASES = 6
+TEST_PN_CASES = 1
 
 FILE_SOURCE_NAME = 'assets/source'
 FILE_RESULTS_NAME = 'assets/results'
 
 REGEX_GET_URL = 'http.+portaltp.+\.br'
 
+
+##
+#main
+
 def get_input_csv():
 
     data = []
     with open('{}.csv'.format(FILE_SOURCE_NAME), 'r') as csvfile:
-        rows = csv.reader(csvfile, delimiter=';')
-        for row in rows:
-
+        reader = csv.reader(csvfile, delimiter=';')
+        next(reader, None)  #skipping the header
+        for row in reader:
             url_executivo = re.search(REGEX_GET_URL, row[2])
             if url_executivo:
                 data += [dict(municipio=row[0],poder='executivo',url=url_executivo[0])]
@@ -40,6 +48,10 @@ def output_result(result):
     with open('{}.json'.format(FILE_RESULTS_NAME), 'w') as file_ref:
         file_ref.write(text)
 
+
+##
+#utils
+
 def log(message, error=False):
 
     print(message)
@@ -47,7 +59,7 @@ def log(message, error=False):
     #getting caller data
     caller = getframeinfo(stack()[1][0])
     data = '[{}:{}] {}'.format(caller.filename, caller.lineno, message)
-    
+
     log_ref = logging.exception if error else logging.info
     log_ref(data)
 

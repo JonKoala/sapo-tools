@@ -10,17 +10,15 @@ class ModuleEl:
         self.model = ModelEl(root)
         self.root = self.model.root
         self.poder = poder
-        self.available_urls = self.__define_available_urls(self.model, self.poder)
+        self.available_urls = self.__define_available_urls(self.model)
 
-    def __define_available_urls(self, model, poder):
-        available_urls = dict(
-            servidores=model.GET_URL_SERVIDORES,
-            pagamentos=model.GET_URL_PAGAMENTOS,
-            liquidacoes=model.GET_URL_LIQUIDACOES,
-            empenhos=model.GET_URL_EMPENHOS
-        )
-        if poder == 'legislativo': available_urls['execucao receitas'] = model.GET_URL_EXECUCAO_RECEITAS
-        return available_urls
+    def __define_available_urls(self, model):
+        return {
+            'servidores': model.GET_URL_SERVIDORES,
+            'pagamentos': model.GET_URL_PAGAMENTOS,
+            'liquidacoes': model.GET_URL_LIQUIDACOES,
+            'empenhos': model.GET_URL_EMPENHOS
+        }
 
     def build_url(self, url, ano, mes):
         return '{}?ano={}&mes={}'.format(url, ano, mes)
@@ -40,4 +38,4 @@ class ModuleEl:
 
         return result
 
-requests.packages.urllib3.disable_warnings() 
+requests.packages.urllib3.disable_warnings()

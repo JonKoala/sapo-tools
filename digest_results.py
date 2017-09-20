@@ -6,7 +6,7 @@ from pprint import pprint
 ##
 #constants
 
-CSV_HEADER = ['Município', 'Poder', 'Problema', 'api', 'ano', 'mês', 'url', 'teste']
+CSV_HEADER = ['Município', 'Poder', 'Problema', 'api', 'periodo', 'url', 'teste']
 
 FILE_RESULTS_NAME = 'assets/results'
 FILE_SUMMARY_NAME = 'assets/summary'
@@ -21,7 +21,7 @@ def get_results():
 
 def build_row(profile, test=None, test_name=None):
     row = [profile['municipio'], profile['poder']]
-    row += [test_name, test['api'], str(test['ano']), str(test['mes']), test['url'], json.dumps(test)] if test else ['nenhum'] + [''] * 5
+    row += [test_name, test['api'], '{}/{}'.format(test['ano'], test['mes']), test['url'], json.dumps(test)] if test else ['nenhum'] + [''] * 4
 
     return row
 

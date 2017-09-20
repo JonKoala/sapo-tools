@@ -16,7 +16,7 @@ FILE_SUMMARY_NAME = 'assets/summary'
 #main
 
 def get_results():
-    with open('{}.json'.format(FILE_RESULTS_NAME), 'r') as file_ref:
+    with open('{}.json'.format(FILE_RESULTS_NAME), 'r', encoding='utf-8') as file_ref:
         return json.load(file_ref)
 
 def build_row(profile, test=None, test_name=None):

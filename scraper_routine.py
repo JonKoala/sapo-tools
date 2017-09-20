@@ -9,8 +9,7 @@ from test_case_el import TestCaseEl
 ##
 #constants
 
-TEST_MONTH_RADIUS = 6
-TEST_PN_CASES = 1
+TEST_CASES = [(2016, 4), (2016, 5), (2016, 6), (2016, 7), (2016, 8), (2016, 9), (2016, 10), (2016, 11), (2016, 12), (2017, 1), (2017, 2), (2017, 3)]
 
 FILE_SOURCE_NAME = 'assets/source'
 FILE_RESULTS_NAME = 'assets/results'
@@ -39,7 +38,7 @@ def get_input_csv():
     return data
 
 def execute_tests(input_data):
-    test_case = TestCaseEl(input_data['url'], input_data['poder'], TEST_PN_CASES, TEST_MONTH_RADIUS)
+    test_case = TestCaseEl(input_data['url'], input_data['poder'], TEST_CASES)
     return test_case.execute_full_routine()
 
 def output_result(result):

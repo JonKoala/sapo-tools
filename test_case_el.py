@@ -1,16 +1,13 @@
 import datetime
-import random
-from dateutil.relativedelta import relativedelta
 from module_el import ModuleEl
 
 class TestCaseEl:
 
-    def __init__(self, root, poder, cases, month_radius):
+    def __init__(self, root, poder, cases):
         self.module = ModuleEl(root, poder)
         self.root = self.module.root
         self.poder = poder
         self.cases = cases
-        self.month_radius = month_radius if cases < month_radius else cases
 
     def execute_full_routine(self):
 
@@ -56,7 +53,7 @@ class TestCaseEl:
 
     def execute_requests(self):
 
-        date_args = self._generate_dates_arguments(self.cases, self.cases, self.month_radius)
+        date_args = self._generate_dates_arguments(self.cases)
 
         apis = list(self.module.available_urls)
 
@@ -74,22 +71,13 @@ class TestCaseEl:
     ##
     #arguments generation
 
-    def _generate_dates_arguments(self, valid, invalid, month_radius):
-        arguments = []
-
-        valid_dates = self._generate_dates(valid, month_radius, False)
-        invalid_dates = self._generate_dates(invalid, month_radius, True)
-
-        arguments += [dict(mes=date.month, ano=date.year, valid_date=True) for date in valid_dates]
-        arguments += [dict(mes=date.month, ano=date.year, valid_date=False) for date in invalid_dates]
-
-        return arguments
-
-    def _generate_dates(self, count, month_radius, future):
-        add_months = random.sample(range(1, month_radius+1), count)
-        add_months = [month * (1 if future else -1) for month in add_months]
+    def _generate_dates_arguments(self, cases):
         today = datetime.date.today()
 
-        dates = [today + relativedelta(months=months) for months in add_months]
+        arguments = []
+        for case in cases:
+            date = datetime.date(case[0], case[1], 1)
+            valid = date < today
+            arguments += [dict(ano=date.year, mes=date.month, valid_date=valid)]
 
-        return dates
+        return arguments

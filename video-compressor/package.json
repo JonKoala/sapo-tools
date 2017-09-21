@@ -1,0 +1,14 @@
+{
+  "name": "video-compressor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "compress.js",
+  "scripts": {
+    "start": "node compress.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "fluent-ffmpeg": "^2.1.2"
+  }
+}

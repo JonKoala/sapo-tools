@@ -30,3 +30,7 @@ class ModelEl:
 
     @property
     def GET_URL_EMPENHOS(self): return self.__format_get_url('json_empenhos')
+
+    #legislativo não faz uso
+    @property
+    def GET_URL_EXECUCAO_RECEITAS(self): return self.__format_get_url('json_execucao_receitas')

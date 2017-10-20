@@ -14,7 +14,7 @@ class ModelEl:
     def __format_root(self, root):
         prefix = '' if root[:4] == 'http' else 'http://'
         suffix = '' if root[-1:] == '/' else '/'
-        return prefix + root + suffix
+        return prefix + root.replace('https', 'http') + suffix
 
     def __format_get_url(self, url_ending):
         return self.GET_URL_MODEL.format(self.root, url_ending)

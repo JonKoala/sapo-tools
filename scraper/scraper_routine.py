@@ -3,13 +3,13 @@ import csv
 import json
 import logging
 from inspect import getframeinfo, stack
+
+from appconfig import settings
 from test_case_el import TestCaseEl
 
 
 ##
 #constants
-
-TEST_CASES = [(2016, 4), (2016, 5), (2016, 6), (2016, 7), (2016, 8), (2016, 9), (2016, 10), (2016, 11), (2016, 12), (2017, 1), (2017, 2), (2017, 3)]
 
 FILE_SOURCE_NAME = 'assets/source'
 FILE_RESULTS_NAME = 'assets/results'
@@ -37,8 +37,8 @@ def get_input_csv():
 
     return data
 
-def execute_tests(input_data):
-    test_case = TestCaseEl(input_data['url'], input_data['poder'], TEST_CASES)
+def execute_tests(input_data, test_cases):
+    test_case = TestCaseEl(input_data['url'], input_data['poder'], test_cases)
     return test_case.execute_full_routine()
 
 def output_result(result):
@@ -66,6 +66,8 @@ def log(message, error=False):
 ##
 #routine
 
+#loading configurations and starting logger
+test_cases = settings['dates']
 logging.basicConfig(format='%(asctime)s,%(msecs)d %(levelname)-8s %(message)s',
     datefmt='%Y-%m-%d:%H:%M:%S',
     level=logging.DEBUG,
@@ -82,7 +84,7 @@ results = []
 for index, data in enumerate(input_data):
     try:
         log('testing {}th case ({} - {})'.format(index+1, data['municipio'], data['poder']))
-        result = execute_tests(data)
+        result = execute_tests(data, test_cases)
         result['profile'] = data
         results += [result]
     except:

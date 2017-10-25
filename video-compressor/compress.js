@@ -1,9 +1,16 @@
 var fs = require('fs');
+var childProcess = require('child_process');
+var path = require('path');
 var ffmpeg = require('fluent-ffmpeg');
 
 
-var INPUT_FOLDER = 'inputs/';
-var OUTPUT_FOLDER = 'outputs/';
+//CONSTANTS
+var INPUT_FOLDER = 'input/';
+var OUTPUT_FOLDER = 'output/';
+
+//loading appconfig
+var configFile = fs.readFileSync('appconfig.json');
+var appconfig = JSON.parse(configFile);
 
 
 function compressFile(fileName, inputRef, outputRef) {
@@ -12,8 +19,8 @@ function compressFile(fileName, inputRef, outputRef) {
     var command = new ffmpeg();
     command.input(inputRef)
       .noAudio()
-      .videoCodec('libx264')
-      .videoBitrate('500k')
+      .videoCodec(appconfig.codec)
+      .videoBitrate(appconfig.bitrate)
       .output(outputRef)
       .on('end', res)
       .on('error', rej)
@@ -48,11 +55,23 @@ function executeRoutineStep(files, index=0, report=null) {
 
 function executeRoutine() {
 
+  //getting files from input folder (except my .gitignore)
   var files = fs.readdirSync(INPUT_FOLDER)
-  return Promise.resolve(executeRoutineStep(files))
+    .filter(file => file !== '.gitignore');
+
+  //creating output folder, if it doesn't exists
+  if (!fs.existsSync(OUTPUT_FOLDER))
+    fs.mkdirSync(OUTPUT_FOLDER);
+
+  return Promise.resolve(executeRoutineStep(files));
 }
 
+
+//starting process
 executeRoutine().then(report => {
   console.log('successfully compressed:', report.success.join(', ') || 'None');
   console.log('failed on compression:', report.failure.join(', ') || 'None');
+
+  //opening outputs folder
+  childProcess.exec('%SystemRoot%\\explorer.exe "' + path.join(__dirname, OUTPUT_FOLDER) + '"')
 });

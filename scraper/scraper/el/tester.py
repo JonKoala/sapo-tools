@@ -1,10 +1,14 @@
 import datetime
-from module_el import ModuleEl
 
-class TestCaseEl:
+from scraper.el import module
+from scraper.el import model
+
+class Tester:
+
+    MODEL_REGEX = model.Model.REGEX_URL_GET
 
     def __init__(self, root, poder, cases):
-        self.module = ModuleEl(root, poder)
+        self.module = module.Module(root, poder)
         self.root = self.module.root
         self.poder = poder
         self.cases = cases

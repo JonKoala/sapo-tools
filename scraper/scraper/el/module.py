@@ -2,12 +2,13 @@ import requests
 import datetime
 import json
 import xml.etree.ElementTree as etree
-from model_el import ModelEl
 
-class ModuleEl:
+from scraper.el import model
+
+class Module:
 
     def __init__(self, root, poder):
-        self.model = ModelEl(root)
+        self.model = model.Model(root)
         self.root = self.model.root
         self.poder = poder
         self.available_urls = self.__define_available_urls(self.model)

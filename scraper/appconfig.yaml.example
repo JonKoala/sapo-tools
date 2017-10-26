@@ -1,3 +1,7 @@
 dates:
   - !!python/tuple [2017, 1]
   - !!python/tuple [2017, 2]
+
+logger:
+  filepath: 'output'
+  filename: 'log.txt'

@@ -48,7 +48,7 @@ Ferramenta para automatizar a avaliação das APIs dos jurisdicionados auditados
 A avaliação é feita sobre os seguintes quesitos:
  - disponibilidade (se as APIs estão realmente disponíveis na web)
  - existência de dados (se foi retornado algum dado na busca)
- - confiabilidade (se o dado encontrado condiz com a realidade)
+ - confiabilidade (nessa versão verifica-se apenas se a API retorna dados para datas posteriores à da execução)
 
 ### Requisitos
  - [Python](https://www.python.org/) >= 3.6
